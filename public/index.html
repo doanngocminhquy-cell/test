@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Tra cứu đơn Shopee – Minh Quý</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      background: #f4f6fb;
+      font-family: "Segoe UI", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #container {
+      max-width: 1050px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    /* Logo */
+    .logo-img {
+      width: 110px;
+      display: block;
+      margin: 0 auto 15px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 15px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 10px;
+      border: 1px solid #d0d7e2;
+      outline: none;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 10px 26px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      background: #ff5722;
+      color: white;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      background: #ff6a39;
+    }
+
+    #status {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 25px;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #eef1f8;
+    }
+
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #e6e8ef;
+      font-size: 14px;
+      text-align: left;
+    }
+
+    th {
+      font-weight: 700;
+    }
+
+    tr:hover {
+      background: #fafafa;
+    }
+
+    img.productImg {
+      width: 46px;
+      height: 46px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+    <!-- LOGO -->
+    <img src="./logo.png" class="logo-img" alt="logo">
+
+    <h2>Tra cứu đơn hàng Shopee – Minh Quý</h2>
+
+    <textarea id="cookieBox" rows="6" placeholder="Dán cookie SPC_ST=... vào đây"></textarea>
+    <button onclick="go()">Check</button>
+
+    <div id="status"></div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function go() {
+      const cookies = document.getElementById("cookieBox").value
+        .split(/\r?\n/)
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      const status = document.getElementById("status");
+      const result = document.getElementById("result");
+
+      status.textContent = "Đang lấy đơn...";
+      result.innerHTML = "";
+
+      // ✅ ĐỔI THÀNH RELATIVE PATH để chạy public
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cookies })
+      });
+
+      let data;
+      try {
+        data = await res.json();
+      } catch (e) {
+        status.textContent = "Lỗi: Server không trả JSON.";
+        return;
+      }
+
+      if (!res.ok) {
+        status.textContent = "Lỗi: " + (data.error || "unknown");
+        return;
+      }
+
+      status.textContent = `Có ${data.count} đơn`;
+
+      const rows = (data.orders || []).map(o => `
+        <tr>
+          <td>${o.stt}</td>
+          <td>${o.mvd}</td>
+          <td>${o.status}</td>
+          <td>${o.receiver}</td>
+          <td>${o.receiverPhone}</td>
+          <td title="${o.address}">${o.address}</td>
+          <td>${o.productImg ? `<img src="${o.productImg}" class="productImg"/>` : "—"}</td>
+          <td>${o.shipperName || "—"}</td>
+          <td>${o.shipperPhone || "—"}</td>
+        </tr>
+      `).join("");
+
+      result.innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>MVĐ</th>
+              <th>Trạng thái</th>
+              <th>Người nhận</th>
+              <th>SĐT nhận</th>
+              <th>Địa chỉ</th>
+              <th>SP</th>
+              <th>Tên shipper</th>
+              <th>SĐT ship</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+  </script>
+</body>
+</html>

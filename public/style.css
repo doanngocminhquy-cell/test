@@ -1,0 +1,182 @@
+/* =========================
+   FULL UI – TO – ĐẸP (Shopee vibe)
+   Giữ nguyên HTML của bạn
+========================= */
+
+/* Reset */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+}
+
+body{
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #ffe8e2 0%, transparent 60%),
+    radial-gradient(1000px 500px at 110% 0%, #fff2ee 0%, transparent 55%),
+    #f4f6fb;
+  color:#0f172a;
+  min-height:100vh;
+  padding: 24px;
+}
+
+/* Container full màn */
+#container{
+  width:100%;
+  max-width: 1600px;      /* FULL rộng */
+  margin: 0 auto;
+  padding: 32px 40px;
+
+  background: rgba(255,255,255,0.9);
+  border:1px solid #eef0f4;
+  border-radius: 20px;
+  box-shadow: 0 14px 40px rgba(15,23,42,.08);
+}
+
+/* Title */
+h2{
+  font-size: 30px;        /* TO hơn */
+  font-weight: 900;
+  letter-spacing: .3px;
+  text-align:center;
+  margin-bottom: 22px;
+  color:#111827;
+}
+
+/* Textarea */
+textarea{
+  width: 100%;
+  min-height: 180px;      /* CAO hơn */
+  border:2px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 16px;        /* CHỮ to */
+  line-height: 1.5;
+  outline: none;
+  resize: vertical;
+  transition: .2s;
+  background:#fff;
+}
+textarea:focus{
+  border-color:#EE4D2D;
+  box-shadow:0 0 0 5px rgba(238,77,45,.18);
+}
+
+/* Button Shopee style */
+button{
+  background: linear-gradient(180deg, #EE4D2D, #ff6a43);
+  color:white;
+  border:none;
+  padding: 12px 22px;
+  margin-top: 14px;
+  border-radius: 12px;
+  cursor:pointer;
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing:.2px;
+  box-shadow: 0 8px 20px rgba(238,77,45,.28);
+  transition:.15s;
+}
+button:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+/* Status text */
+#status{
+  margin-top: 14px;
+  font-size: 15px;
+  color:#475569;
+  font-weight:600;
+}
+
+/* Table wrap */
+#result{
+  margin-top: 14px;
+  width:100%;
+}
+
+/* Table đẹp */
+table{
+  width:100%;
+  margin-top: 14px;
+  border-collapse: separate;
+  border-spacing:0;
+  background:white;
+  border-radius: 16px;
+  overflow:hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+}
+
+/* Header table */
+th{
+  background:#f8fafc;
+  font-weight: 900;
+  font-size: 14px;
+  padding: 14px 12px;
+  border-bottom:1px solid #e2e8f0;
+  text-align:left;
+  color:#0f172a;
+  white-space: nowrap;
+}
+
+/* Cell */
+td{
+  padding: 14px 12px;
+  font-size: 15px;      /* chữ to hơn */
+  border-bottom:1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+/* Hover row */
+tr:hover{
+  background:#fff6f3;
+}
+
+/* Ảnh sản phẩm */
+td img{
+  width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 10px;
+  border:1px solid #e5e7eb;
+  box-shadow: 0 3px 10px rgba(0,0,0,.08);
+}
+
+/* Cột địa chỉ tự xuống dòng đẹp */
+td[title]{
+  max-width: 420px;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.35;
+}
+
+/* Nút và khu nhập nằm gọn ở giữa */
+textarea, button, #status, #result{
+  display:block;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px){
+  #container{ padding: 22px; }
+  h2{ font-size: 24px; }
+  textarea{ font-size: 15px; min-height:150px; }
+  button{ font-size:15px; }
+  td, th{ font-size:14px; }
+}
+
+@media (max-width: 600px){
+  body{ padding: 10px; }
+  #container{ padding: 14px; border-radius: 14px; }
+  textarea{ min-height:140px; }
+  th, td{ padding: 10px; font-size:13px; }
+}
+
+/* ===== LOGO ===== */
+.logo-img {
+  width: 110px;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto 20px;
+}
