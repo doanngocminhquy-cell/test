@@ -180,3 +180,29 @@ textarea, button, #status, #result{
   display: block;
   margin: 0 auto 20px;
 }
+.donate-text {
+  text-align: center;
+  font-size: 17px;
+  font-weight: 600;
+  color: #ff5722;
+  margin-top: -5px;
+  margin-bottom: 20px;
+}
+.donate-text {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ff5722;
+  margin-top: -5px;
+  margin-bottom: 8px;
+}
+
+.donate-bank {
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
