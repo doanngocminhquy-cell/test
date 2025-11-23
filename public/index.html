@@ -5,7 +5,17 @@
   <title>Tra cứu đơn Shopee – Minh Quý</title>
   <link rel="stylesheet" href="style.css">
 
+
+  <!-- FLOATING ACTION BUTTONS -->
+<div class="floating-buttons">
+  
+  
+</div>
+
   <style>
+      
+
+    
     body {
       background: #f4f6fb;
       font-family: "Segoe UI", sans-serif;
@@ -114,6 +124,7 @@
 </head>
 
 <body>
+
   <div id="container">
 
     <!-- LOGO -->
@@ -126,18 +137,24 @@
 
     <p class="donate-bank">
       <b>Số tài khoản:</b> 8888881010 – <b>VCB</b><br>
-      <b>Chủ tài khoản:</b> Mặt Trận Tổ Quốc Việt Nam – Ban Cứu Trợ Trung Ương
+      Mặt Trận Tổ Quốc Việt Nam – Ban Cứu Trợ Trung Ương
     </p>
 
     <h2>Tra cứu đơn hàng Shopee – Minh Quý</h2>
 
-
     <textarea id="cookieBox" rows="6" placeholder="Dán cookie SPC_ST=... vào đây"></textarea>
-    <button onclick="go()">Check</button>
+
+    <!-- HÀNG NÚT (Zalo trái – Check phải) -->
+    <div class="btn-row">
+      <a href="https://zalo.me/g/rsasqo212" class="btn-zalo">Nhóm ZALO Đặt Đơn</a>
+      <button onclick="go()" class="btn-check">Check</button>
+    </div>
 
     <div id="status"></div>
     <div id="result"></div>
   </div>
+</body>
+
 
   <script>
     async function go() {

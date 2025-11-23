@@ -206,3 +206,38 @@ textarea, button, #status, #result{
   line-height: 1.5;
 }
 
+/* Hàng chứa 2 nút */
+.btn-row {
+  display: flex;
+  justify-content: space-between; /* Zalo sang trái – Check sang phải */
+  align-items: center;
+  margin-top: 15px;
+}
+
+/* Nút Zalo */
+.btn-zalo {
+  padding: 10px 22px;
+  background: #0084ff;
+  color: white;
+  border-radius: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Nút Check (giữ style cũ) */
+.btn-check {
+  padding: 10px 26px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background: #ff5722;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-check:hover {
+  background: #ff6a39;
+}
