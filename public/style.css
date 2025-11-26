@@ -24,10 +24,9 @@ body{
 /* Container full màn */
 #container{
   width:100%;
-  max-width: 1600px;      /* FULL rộng */
+  max-width: 1600px;
   margin: 0 auto;
   padding: 32px 40px;
-
   background: rgba(255,255,255,0.9);
   border:1px solid #eef0f4;
   border-radius: 20px;
@@ -36,7 +35,7 @@ body{
 
 /* Title */
 h2{
-  font-size: 30px;        /* TO hơn */
+  font-size: 30px;
   font-weight: 900;
   letter-spacing: .3px;
   text-align:center;
@@ -47,11 +46,11 @@ h2{
 /* Textarea */
 textarea{
   width: 100%;
-  min-height: 180px;      /* CAO hơn */
+  min-height: 180px;
   border:2px solid #e5e7eb;
   border-radius: 14px;
   padding: 14px 16px;
-  font-size: 16px;        /* CHỮ to */
+  font-size: 16px;
   line-height: 1.5;
   outline: none;
   resize: vertical;
@@ -63,7 +62,7 @@ textarea:focus{
   box-shadow:0 0 0 5px rgba(238,77,45,.18);
 }
 
-/* Button Shopee style */
+/* Button mặc định */
 button{
   background: linear-gradient(180deg, #EE4D2D, #ff6a43);
   color:white;
@@ -124,7 +123,7 @@ th{
 /* Cell */
 td{
   padding: 14px 12px;
-  font-size: 15px;      /* chữ to hơn */
+  font-size: 15px;
   border-bottom:1px solid #f1f5f9;
   vertical-align: middle;
 }
@@ -173,21 +172,14 @@ textarea, button, #status, #result{
   th, td{ padding: 10px; font-size:13px; }
 }
 
-/* ===== LOGO ===== */
+/* ===== LOGO & TEXT ỦNG HỘ ===== */
 .logo-img {
   width: 110px;
   border-radius: 12px;
   display: block;
   margin: 0 auto 20px;
 }
-.donate-text {
-  text-align: center;
-  font-size: 17px;
-  font-weight: 600;
-  color: #ff5722;
-  margin-top: -5px;
-  margin-bottom: 20px;
-}
+
 .donate-text {
   text-align: center;
   font-size: 18px;
@@ -206,38 +198,62 @@ textarea, button, #status, #result{
   line-height: 1.5;
 }
 
-/* Hàng chứa 2 nút */
+/* ===== HÀNG NÚT ZALO + CHECK ===== */
 .btn-row {
   display: flex;
-  justify-content: space-between; /* Zalo sang trái – Check sang phải */
+  justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
+  gap: 12px;
+  margin-top: 18px;
+  flex-wrap: wrap;
 }
 
 /* Nút Zalo */
 .btn-zalo {
-  padding: 10px 22px;
+  padding: 12px 22px;
   background: #0084ff;
   color: white;
   border-radius: 10px;
   font-weight: 600;
   text-decoration: none;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 132, 255, 0.25);
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
 }
 
-/* Nút Check (giữ style cũ) */
+/* Nút Check override */
 .btn-check {
-  padding: 10px 26px;
+  padding: 12px 26px;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   border: none;
   border-radius: 10px;
   background: #ff5722;
   color: white;
   cursor: pointer;
   transition: 0.2s;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+}
+.btn-check:hover {
+  background:#ff6a39;
 }
 
-.btn-check:hover {
-  background: #ff6a39;
+/* Tuyết rơi */
+.snow {
+  position: fixed;
+  top: -10px;
+  color: #ffffff;
+  z-index: 9999;
+  pointer-events: none;
+  animation-name: fall;
+  animation-timing-function: linear;
+  text-shadow:0 0 6px rgba(0,0,0,.35);
+}
+
+@keyframes fall {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(100vh); }
 }
