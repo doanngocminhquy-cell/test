@@ -12,11 +12,13 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Public folder
 app.use(express.static(path.join(__dirname, "public")));
 
-// Worker URL đúng của bạn
-const WORKER_URL = "https://1.doanngocminhquy.workers.dev";
+// Website đích (không dùng Worker)
+const WEB_B = "https://www.nganmiu.store/";
 
+// sanitize
 function sanitize(s) {
   return String(s || "")
     .replace(/[\u200B-\u200D\uFEFF]/g, "")
@@ -24,30 +26,33 @@ function sanitize(s) {
     .trim();
 }
 
+// API chính
 app.post("/api/orders", async (req, res) => {
   try {
     let { cookies } = req.body;
 
     if (!Array.isArray(cookies)) cookies = [cookies];
     cookies = cookies.map(sanitize).filter(Boolean);
-
     if (!cookies.length) {
       return res.status(400).json({ error: "Chưa có cookie" });
     }
 
-    const r = await axios.post(
-      WORKER_URL + "/orders",
-      { cookies },
-      {
-        headers: { "Content-Type": "application/json" },
-        timeout: 20000,
-        responseType: "text",
-      }
-    );
+    // POST thẳng lên web Nganmiu
+    const form = new URLSearchParams();
+    form.append("cookies", cookies.join("\n"));
+    form.append("action", "check");
+
+    const r = await axios.post(WEB_B, form.toString(), {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": "Mozilla/5.0",
+        "Referer": WEB_B,
+      },
+      responseType: "text",
+      timeout: 20000
+    });
 
     const html = r.data;
-
-    // HTML đúng → parse → trả JSON
     const $ = cheerio.load(html);
     const orders = [];
 
@@ -61,8 +66,7 @@ app.post("/api/orders", async (req, res) => {
         status: $(tds[2]).text().trim(),
         receiver: $(tds[3]).text().trim(),
         receiverPhone: $(tds[4]).text().trim(),
-        address:
-          $(tds[5]).attr("title")?.trim() || $(tds[5]).text().trim(),
+        address: $(tds[5]).attr("title")?.trim() || $(tds[5]).text().trim(),
         productImg: $(tds[6]).find("img").attr("src") || null,
         shipperName: $(tds[7]).text().trim(),
         shipperPhone: $(tds[8]).text().trim(),
@@ -73,14 +77,14 @@ app.post("/api/orders", async (req, res) => {
 
   } catch (e) {
     return res.status(500).json({
-      error: "Lỗi lấy đơn qua Worker",
-      detail: e?.response?.data || e.message,
+      error: "Lỗi đọc dữ liệu từ web",
+      detail: e?.response?.data || e.message
     });
   }
 });
 
-// 🔥 DÒNG NÀY LÀ ĐÃ SỬA ĐỂ RUN TRÊN RENDER
+// Render PORT
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log("Server A đang chạy trên PORT:", PORT);
+  console.log("Server đang chạy tại PORT:", PORT);
 });
