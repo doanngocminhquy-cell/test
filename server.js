@@ -2,24 +2,19 @@ import express from "express";
 import axios from "axios";
 import * as cheerio from "cheerio";
 import cors from "cors";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
-
-import path from "path";
-import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 
-
-
-
-// ❗ KHÔNG CÓ DẤU "/" CUỐI
+// Worker URL đúng của bạn
 const WORKER_URL = "https://1.doanngocminhquy.workers.dev";
 
 function sanitize(s) {
@@ -32,6 +27,7 @@ function sanitize(s) {
 app.post("/api/orders", async (req, res) => {
   try {
     let { cookies } = req.body;
+
     if (!Array.isArray(cookies)) cookies = [cookies];
     cookies = cookies.map(sanitize).filter(Boolean);
 
@@ -44,26 +40,20 @@ app.post("/api/orders", async (req, res) => {
       { cookies },
       {
         headers: { "Content-Type": "application/json" },
-        timeout: 15000,
-        responseType: "text"
+        timeout: 20000,
+        responseType: "text",
       }
     );
 
     const html = r.data;
 
-    if (typeof html === "string" && html.trim().startsWith("{")) {
-      return res.status(502).json({
-        error: "Worker trả lỗi JSON",
-        detail: html
-      });
-    }
-
+    // HTML đúng → parse → trả JSON
     const $ = cheerio.load(html);
     const orders = [];
 
     $("table tbody tr").each((_, tr) => {
       const tds = $(tr).find("td");
-      if (tds.length === 0) return;
+      if (tds.length < 3) return;
 
       orders.push({
         stt: $(tds[0]).text().trim(),
@@ -73,9 +63,9 @@ app.post("/api/orders", async (req, res) => {
         receiverPhone: $(tds[4]).text().trim(),
         address:
           $(tds[5]).attr("title")?.trim() || $(tds[5]).text().trim(),
-        productImg: $(tds[6]).find("img.product").attr("src") || null,
+        productImg: $(tds[6]).find("img").attr("src") || null,
         shipperName: $(tds[7]).text().trim(),
-        shipperPhone: $(tds[8]).text().trim()
+        shipperPhone: $(tds[8]).text().trim(),
       });
     });
 
@@ -84,11 +74,13 @@ app.post("/api/orders", async (req, res) => {
   } catch (e) {
     return res.status(500).json({
       error: "Lỗi lấy đơn qua Worker",
-      detail: e?.response?.data || e.message
+      detail: e?.response?.data || e.message,
     });
   }
 });
 
-app.listen(3000, () =>
-  console.log("Server A chạy tại: http://localhost:3000")
-);
+// 🔥 DÒNG NÀY LÀ ĐÃ SỬA ĐỂ RUN TRÊN RENDER
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log("Server A đang chạy trên PORT:", PORT);
+});
