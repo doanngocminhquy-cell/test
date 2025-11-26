@@ -5,77 +5,120 @@
   <title>Tra cứu đơn Shopee – Minh Quý</title>
   <link rel="stylesheet" href="style.css">
 
-
-  <!-- FLOATING ACTION BUTTONS -->
-<div class="floating-buttons">
-  
-  
-</div>
-
   <style>
-      
-
-    
+    /* Nền đêm Noel đỏ (tối để tuyết nổi rõ) */
     body {
-      background: #f4f6fb;
-      font-family: "Segoe UI", sans-serif;
       margin: 0;
       padding: 0;
+      font-family: "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, #b91c1c 0, #7f1d1d 35%, #111827 100%);
+      color: #f9fafb;
+      overflow-x: hidden;
     }
 
+    /* Khung chính – vẫn như cũ nhưng viền đỏ + vàng Noel */
     #container {
       max-width: 1050px;
-      margin: 40px auto;
-      background: #ffffff;
+      margin: 50px auto 40px;
+      background: rgba(15,23,42,0.96);
       padding: 30px 40px;
       border-radius: 20px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      box-shadow:
+        0 0 40px rgba(248,113,113,0.6),
+        0 0 0 2px rgba(250,204,21,0.8);
+      border: 1px solid rgba(252,211,77,0.9);
+      backdrop-filter: blur(6px);
+      position: relative;
     }
 
-    /* Logo */
     .logo-img {
       width: 110px;
       display: block;
       margin: 0 auto 15px;
       border-radius: 14px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.4);
     }
 
+    /* Tiêu đề màu đỏ + hiệu ứng gradient Noel */
     h2 {
       text-align: center;
       margin-bottom: 15px;
-      font-size: 28px;
-      font-weight: 700;
-      color: #333;
+      font-size: 30px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #fecaca, #fecf6a, #bbf7d0);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(248,250,252,0.4);
+    }
+
+    .donate-text, .donate-bank {
+      text-align: center;
+      font-size: 16px;
+      margin: 5px 0;
+      color: #fee2e2;
+      text-shadow: 0 0 6px rgba(0,0,0,0.6);
     }
 
     textarea {
       width: 100%;
       padding: 12px;
       font-size: 15px;
-      border-radius: 10px;
-      border: 1px solid #d0d7e2;
+      border-radius: 12px;
+      border: 1px solid #4b5563;
       outline: none;
       resize: vertical;
+      background: #020617;
+      color: #e5e7eb;
+      box-shadow: inset 0 0 10px rgba(15,23,42,0.9);
+    }
+
+    textarea::placeholder {
+      color: #6b7280;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-zalo {
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: #0ea5e9;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      display: inline-block;
+      box-shadow: 0 3px 12px rgba(8,145,178,0.8);
+    }
+    .btn-zalo:hover {
+      background: #0284c7;
+      transform: translateY(-1px);
     }
 
     button {
-      margin-top: 12px;
       padding: 10px 26px;
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 700;
       border: none;
-      border-radius: 10px;
-      background: #ff5722;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f97373, #ef4444);
       color: white;
       cursor: pointer;
       display: block;
       margin-left: auto;
-      transition: 0.2s;
+      transition: 0.15s;
+      box-shadow: 0 3px 14px rgba(248,113,113,0.9);
     }
-
     button:hover {
-      background: #ff6a39;
+      filter: brightness(1.05);
+      transform: translateY(-1px) scale(1.02);
     }
 
     #status {
@@ -83,34 +126,34 @@
       font-weight: bold;
       font-size: 17px;
       text-align: center;
+      color: #bbf7d0;
+      text-shadow: 0 0 6px rgba(22,163,74,0.7);
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 25px;
-      background: white;
+      background: #020617;
       border-radius: 12px;
       overflow: hidden;
+      box-shadow: 0 0 15px rgba(15,23,42,0.9);
     }
 
     thead {
-      background: #eef1f8;
+      background: #111827;
     }
 
     th, td {
       padding: 12px;
-      border-bottom: 1px solid #e6e8ef;
+      border-bottom: 1px solid #1f2937;
       font-size: 14px;
       text-align: left;
-    }
-
-    th {
-      font-weight: 700;
+      color: #e5e7eb;
     }
 
     tr:hover {
-      background: #fafafa;
+      background: #030712;
     }
 
     img.productImg {
@@ -118,19 +161,108 @@
       height: 46px;
       object-fit: cover;
       border-radius: 8px;
-      border: 1px solid #ddd;
+      border: 1px solid #4b5563;
+    }
+
+    /* ❄ Tuyết rơi – to & sáng trên nền đỏ */
+    .snow {
+      position: fixed;
+      top: -10px;
+      color: #ffffff;
+      z-index: 9999;
+      pointer-events: none;
+      animation-name: fall;
+      animation-timing-function: linear;
+      text-shadow: 0 0 12px rgba(255,255,255,1);
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) translateX(0);
+      }
+      100% {
+        transform: translateY(100vh) translateX(40px);
+      }
+    }
+
+    /* Dải đèn Noel phía trên container */
+    .lights {
+      width: 100%;
+      max-width: 1050px;
+      margin: 15px auto 0;
+      display: flex;
+      justify-content: space-around;
+      padding: 6px 0;
+    }
+
+    .lights span {
+      width: 14px;
+      height: 20px;
+      border-radius: 50% 50% 45% 45%;
+      background: #fbbf24;
+      box-shadow: 0 0 10px rgba(251,191,36,0.9);
+      animation: blink 1.2s infinite alternate;
+    }
+
+    .lights span:nth-child(2) { background:#f97316; box-shadow:0 0 10px rgba(249,115,22,0.9); animation-delay: .2s; }
+    .lights span:nth-child(3) { background:#22c55e; box-shadow:0 0 10px rgba(34,197,94,0.9); animation-delay: .4s; }
+    .lights span:nth-child(4) { background:#38bdf8; box-shadow:0 0 10px rgba(56,189,248,0.9); animation-delay: .6s; }
+    .lights span:nth-child(5) { background:#f97373; box-shadow:0 0 10px rgba(248,113,113,0.9); animation-delay: .8s; }
+
+    @keyframes blink {
+      from { opacity: 0.4; transform: translateY(0); }
+      to   { opacity: 1; transform: translateY(2px) scale(1.1); }
+    }
+
+    /* 🌲🌲 CÂY THÔNG 2 BÊN – TRANG TRÍ, KO ĐỔI BỐ CỤC */
+    .xmas-tree {
+      position: fixed;
+      font-size: 70px;
+      top: 90px;
+      z-index: 100;
+      text-shadow: 0 0 16px rgba(34,197,94,0.9);
+    }
+    .xmas-tree.left {
+      left: 20px;
+    }
+    .xmas-tree.right {
+      right: 20px;
+    }
+
+    /* 🎁 HỘP QUÀ DƯỚI CHÂN TRANG TRÍ */
+    .xmas-gifts {
+      position: fixed;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 32px;
+      z-index: 100;
+      text-shadow: 0 0 12px rgba(252,211,77,0.9);
+    }
+
+    @media (max-width: 900px) {
+      .xmas-tree { display:none; }  /* mobile cho gọn */
     }
   </style>
 </head>
 
 <body>
 
+  <!-- Cây thông & hộp quà (trang trí) -->
+  <div class="xmas-tree left">🎄</div>
+  <div class="xmas-tree right">🎄</div>
+  <div class="xmas-gifts">🎁🎁🎁</div>
+
+  <!-- Dải đèn Noel trên cùng -->
+  <div class="lights">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
   <div id="container">
 
-    <!-- LOGO -->
     <img src="./logo.png" class="logo-img" alt="logo">
 
-    <!-- KÊU GỌI ỦNG HỘ -->
+    <!-- ❤️ ĐOẠN ỦNG HỘ ĐỒNG BÀO CỦA BẠN -->
     <p class="donate-text">
       ❤️ Chung tay ủng hộ đồng bào vùng lũ miền Trung ❤️
     </p>
@@ -140,11 +272,11 @@
       Mặt Trận Tổ Quốc Việt Nam – Ban Cứu Trợ Trung Ương
     </p>
 
-    <h2>Tra cứu đơn hàng Shopee – Minh Quý</h2>
+    <h2>Tra cứu đơn hàng Shopee – Minh Quý 🎄</h2>
 
     <textarea id="cookieBox" rows="6" placeholder="Dán cookie SPC_ST=... vào đây"></textarea>
 
-    <!-- HÀNG NÚT (Zalo trái – Check phải) -->
+    <!-- ✅ NHÓM ZALO GIỮ NGUYÊN -->
     <div class="btn-row">
       <a href="https://zalo.me/g/rsasqo212" class="btn-zalo">Nhóm ZALO Đặt Đơn</a>
       <button onclick="go()" class="btn-check">Check</button>
@@ -153,77 +285,95 @@
     <div id="status"></div>
     <div id="result"></div>
   </div>
-</body>
 
-
+  <!-- ❄ SCRIPT TUYẾT RƠI – ĐẬM RÕ -->
   <script>
-    async function go() {
-      const cookies = document.getElementById("cookieBox").value
-        .split(/\r?\n/)
-        .map(s => s.trim())
-        .filter(Boolean);
-
-      const status = document.getElementById("status");
-      const result = document.getElementById("result");
-
-      status.textContent = "Đang lấy đơn...";
-      result.innerHTML = "";
-
-      // ✅ ĐỔI THÀNH RELATIVE PATH để chạy public
-      const res = await fetch("/api/orders", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cookies })
-      });
-
-      let data;
-      try {
-        data = await res.json();
-      } catch (e) {
-        status.textContent = "Lỗi: Server không trả JSON.";
-        return;
-      }
-
-      if (!res.ok) {
-        status.textContent = "Lỗi: " + (data.error || "unknown");
-        return;
-      }
-
-      status.textContent = `Có ${data.count} đơn`;
-
-      const rows = (data.orders || []).map(o => `
-        <tr>
-          <td>${o.stt}</td>
-          <td>${o.mvd}</td>
-          <td>${o.status}</td>
-          <td>${o.receiver}</td>
-          <td>${o.receiverPhone}</td>
-          <td title="${o.address}">${o.address}</td>
-          <td>${o.productImg ? `<img src="${o.productImg}" class="productImg"/>` : "—"}</td>
-          <td>${o.shipperName || "—"}</td>
-          <td>${o.shipperPhone || "—"}</td>
-        </tr>
-      `).join("");
-
-      result.innerHTML = `
-        <table>
-          <thead>
-            <tr>
-              <th>STT</th>
-              <th>MVĐ</th>
-              <th>Trạng thái</th>
-              <th>Người nhận</th>
-              <th>SĐT nhận</th>
-              <th>Địa chỉ</th>
-              <th>SP</th>
-              <th>Tên shipper</th>
-              <th>SĐT ship</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
-      `;
-    }
+  function createSnow() {
+    const snow = document.createElement("div");
+    snow.classList.add("snow");
+    snow.style.left = Math.random() * window.innerWidth + "px";
+    snow.style.animationDuration = 4 + Math.random() * 4 + "s";
+    snow.style.opacity = 0.7 + Math.random() * 0.3;
+    snow.style.fontSize = 14 + Math.random() * 14 + "px"; // to hơn
+    snow.innerHTML = "❄";
+    document.body.appendChild(snow);
+    setTimeout(() => snow.remove(), 9000);
+  }
+  // dày hơn: khoảng cách nhỏ
+  setInterval(createSnow, 120);
   </script>
+
+  <!-- SCRIPT GỌI API (GIỮ NGUYÊN) -->
+  <script>
+  async function go() {
+    const cookies = document.getElementById("cookieBox").value
+      .split(/\r?\n/)
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    const status = document.getElementById("status");
+    const result = document.getElementById("result");
+
+    status.textContent = "Đang lấy đơn...";
+    result.innerHTML = "";
+
+    const API_URL = "https://shopee-srjr.onrender.com/api/orders";
+
+    const res = await fetch(API_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cookies })
+    });
+
+    let data;
+    try {
+      data = await res.json();
+    } catch (e) {
+      status.textContent = "Lỗi: Server không trả JSON.";
+      return;
+    }
+
+    if (!res.ok) {
+      status.textContent = "Lỗi: " + (data.error || "unknown");
+      return;
+    }
+
+    status.textContent = `Có ${data.count} đơn`;
+
+    const rows = (data.orders || []).map(o => `
+      <tr>
+        <td>${o.stt}</td>
+        <td>${o.mvd}</td>
+        <td>${o.status}</td>
+        <td>${o.receiver}</td>
+        <td>${o.receiverPhone}</td>
+        <td>${o.address}</td>
+        <td>${o.productImg ? `<img src="${o.productImg}" class="productImg"/>` : "—"}</td>
+        <td>${o.shipperName || "—"}</td>
+        <td>${o.shipperPhone || "—"}</td>
+      </tr>
+    `).join("");
+
+    result.innerHTML = `
+      <table>
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>MVĐ</th>
+            <th>Trạng thái</th>
+            <th>Người nhận</th>
+            <th>SĐT nhận</th>
+            <th>Địa chỉ</th>
+            <th>SP</th>
+            <th>Tên shipper</th>
+            <th>SĐT ship</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    `;
+  }
+  </script>
+
 </body>
 </html>
